@@ -60,6 +60,8 @@
     <Compile Include="Assets\Ethan the Hero\Script\PlayerAttackMethod.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
+    <Compile Include="Assets\Scripts\CoinsSpawner.cs" />
+    <Compile Include="Assets\Scripts\Counter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

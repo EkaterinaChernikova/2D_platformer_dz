@@ -378,6 +378,8 @@
 "Assets/Ethan the Hero/Script/PlayerMovement/PlayerMovement.cs"
 "Assets/Ethan the Hero/Script/PlayerMovement/PlayerMovementData.cs"
 "Assets/Scripts/Coin.cs"
+"Assets/Scripts/CoinsSpawner.cs"
+"Assets/Scripts/Counter.cs"
 "Assets/Scripts/Enemy.cs"
 "Assets/Scripts/Player.cs"
 -langversion:9.0
