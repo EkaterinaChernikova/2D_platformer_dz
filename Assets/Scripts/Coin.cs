@@ -7,9 +7,10 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
+    [SerializeField] private CoinsSpawner _spawner; 
+
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _collider;
-    public bool _isTouched { get; private set; } = false;
 
     private void Awake()
     {
@@ -19,18 +20,12 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _isTouched = true;
-        //SetVisibility(false);
+        _spawner.SetTouchedCoin(this);
     }
 
     public void SetVisibility(bool isOn)
     {
         _spriteRenderer.enabled = isOn;
         _collider.enabled = isOn;
-    }
-
-    public void IsTouched(bool isTrue)
-    {
-        _isTouched = isTrue;
     }
 }

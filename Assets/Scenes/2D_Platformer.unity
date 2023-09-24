@@ -488,6 +488,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c26f2bc7a1345f43bfe9f30491d0c17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _counter: {fileID: 748091345}
 --- !u!1 &369143432
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,7 +995,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d296dd7583ba0c43ab0c9d4af353ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coinsSpawner: {fileID: 324490951}
 --- !u!1 &800516397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2466,6 +2466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310b620d43024dc4e9ef79876c10679a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawner: {fileID: 324490951}
 --- !u!61 &1419819793
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2842,6 +2843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310b620d43024dc4e9ef79876c10679a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawner: {fileID: 324490951}
 --- !u!61 &1626487867
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2882,6 +2884,7 @@ GameObject:
   - component: {fileID: 1651911626}
   - component: {fileID: 1651911628}
   - component: {fileID: 1651911627}
+  - component: {fileID: 1651911629}
   m_Layer: 0
   m_Name: Player_0
   m_TagString: Untagged
@@ -3015,7 +3018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5fe42bbb2865e4bbacb8a3ce85ada6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 1651911628}
   _speed: 4
   _jumpForce: 7
 --- !u!95 &1651911628
@@ -3038,6 +3040,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!114 &1651911629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651911622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 383dd4e69c6f55348ba7b1fde2471c7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _animator: {fileID: 1651911628}
 --- !u!1 &1676476998
 GameObject:
   m_ObjectHideFlags: 0
@@ -3532,6 +3547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310b620d43024dc4e9ef79876c10679a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spawner: {fileID: 324490951}
 --- !u!61 &1924172965
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -4,29 +4,24 @@ using UnityEngine;
 
 public class CoinsSpawner : MonoBehaviour
 {
+    [SerializeField] private Counter _counter;
+
     private WaitForSeconds _timer;
+    private Coin _touchedCoin = null;
     private int _delay = 5;
-    public List<Coin> _coins { get; private set; } = new List<Coin>();
 
     private void Awake()
     {
         _timer = new WaitForSeconds(_delay);
-
-        for (int i = 0; i < transform.childCount; i++)
-        {
-            _coins.Add(transform.GetChild(i).GetComponent<Coin>());
-        }
     }
 
     private void Update()
     {
-        foreach (Coin coin in _coins)
+        if (_touchedCoin != null)
         {
-            if (coin._isTouched == true)
-            {
-                coin.IsTouched(false);
-                StartCoroutine(Respawn(coin));
-            }
+            _counter.AddScore();
+            StartCoroutine(Respawn(_touchedCoin));
+            _touchedCoin = null;
         }
     }
 
@@ -35,5 +30,10 @@ public class CoinsSpawner : MonoBehaviour
         coin.SetVisibility(false);
         yield return _timer;
         coin.SetVisibility(true);
+    }
+
+    public void SetTouchedCoin(Coin coin)
+    {
+        _touchedCoin = coin;
     }
 }

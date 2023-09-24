@@ -53,15 +53,17 @@
     <UnityVersion>2021.3.16f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Ethan the Hero\Script\PlayerMovement\PlayerMovementData.cs" />
     <Compile Include="Assets\Ethan the Hero\Script\PlayerAnimation.cs" />
     <Compile Include="Assets\Ethan the Hero\Script\PlayerMovement\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\Counter.cs" />
+    <Compile Include="Assets\Scripts\CoinsSpawner.cs" />
     <Compile Include="Assets\Ethan the Hero\Script\PlayerAttackMethod.cs" />
+    <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
-    <Compile Include="Assets\Scripts\CoinsSpawner.cs" />
-    <Compile Include="Assets\Scripts\Counter.cs" />
+    <Compile Include="Assets\Scripts\PlayerAnimations.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

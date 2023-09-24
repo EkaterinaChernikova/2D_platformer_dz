@@ -7,8 +7,6 @@ using UnityEngine.UI;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private CoinsSpawner _coinsSpawner;
-
     private Text _text;
 
     private void Awake()
@@ -17,14 +15,8 @@ public class Counter : MonoBehaviour
         _text.text = "0";
     }
 
-    private void Update()
+    public void AddScore()
     {
-        foreach (Coin coin in _coinsSpawner._coins)
-        {
-            if (coin._isTouched == true)
-            {
-                _text.text = (int.Parse(_text.text) + 1).ToString();
-            }
-        }
+        _text.text = (int.Parse(_text.text) + 1).ToString();
     }
 }

@@ -8,6 +8,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     private const string Trigger = "Licking";
+    private const float AverageValue = 0.5f;
 
     private Coroutine _patrol;
 
@@ -42,9 +43,11 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Player>(out Player component))
+        if (collision.TryGetComponent<PlayerAnimations>(out PlayerAnimations component))
         {
             component.Die();
+            collision.TryGetComponent<PlayerMovement>(out PlayerMovement movement);
+            movement.enabled = false;
             StopCoroutine(_patrol);
             _animator.SetTrigger(Trigger);
             _speed = 0;
@@ -63,7 +66,7 @@ public class Enemy : MonoBehaviour
         {
             yield return _timer;
             SetTimer();
-            _isMoveLeft = (Random.value > 0.5f);
+            _isMoveLeft = (Random.value > AverageValue);
             _spriteRenderer.flipX = _isMoveLeft;
         }
     }
