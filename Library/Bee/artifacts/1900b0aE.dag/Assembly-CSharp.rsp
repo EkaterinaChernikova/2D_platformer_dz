@@ -377,11 +377,13 @@
 "Assets/Ethan the Hero/Script/PlayerAttackMethod.cs"
 "Assets/Ethan the Hero/Script/PlayerMovement/PlayerMovement.cs"
 "Assets/Ethan the Hero/Script/PlayerMovement/PlayerMovementData.cs"
+"Assets/Scripts/BarButtons.cs"
 "Assets/Scripts/Buttons.cs"
 "Assets/Scripts/Coin.cs"
 "Assets/Scripts/CoinsSpawner.cs"
 "Assets/Scripts/Counter.cs"
 "Assets/Scripts/Enemy.cs"
+"Assets/Scripts/HealthBar.cs"
 "Assets/Scripts/PlayerAnimations.cs"
 "Assets/Scripts/PlayerMovement.cs"
 -langversion:9.0
