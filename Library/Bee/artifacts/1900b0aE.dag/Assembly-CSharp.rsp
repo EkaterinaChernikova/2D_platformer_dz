@@ -385,6 +385,7 @@
 "Assets/Scripts/Enemy.cs"
 "Assets/Scripts/HealthBar.cs"
 "Assets/Scripts/PlayerAnimations.cs"
+"Assets/Scripts/PlayerHealth.cs"
 "Assets/Scripts/PlayerMovement.cs"
 -langversion:9.0
 

@@ -12,7 +12,6 @@ public class HealthBar : MonoBehaviour
 
     private Image _barImage;
     private float _cheangeSpeed = 100.0f;
-    //private float _currentValue;
     private float _targetValue;
     private int _redZone = 30;
     private int _yellowZone = 70;
@@ -24,8 +23,6 @@ public class HealthBar : MonoBehaviour
         _bar.maxValue = MaxValue;
         _bar.value = _bar.maxValue;
         _barImage.color = Color.green;
-        //_currentValue = _bar.value;
-        //_targetValue = _currentValue;
         _targetValue = _bar.value;
     }
 
@@ -44,7 +41,10 @@ public class HealthBar : MonoBehaviour
             _barImage.color = Color.red;
         }
 
-        ChangeValue();
+        if (_targetValue != _bar.value)
+        {
+            ChangeValue();
+        }
     }
 
     private void ChangeValue()
@@ -64,5 +64,10 @@ public class HealthBar : MonoBehaviour
     public void SetTargetValue(float value)
     {
         _targetValue += value;
+    }
+
+    public float GetCurrentValue()
+    {
+        return _bar.value;
     }
 }

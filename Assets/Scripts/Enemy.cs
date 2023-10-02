@@ -20,6 +20,8 @@ public class Enemy : MonoBehaviour
     private int _maximalDelay = 4;
     private int _walkBorder = 5;
     private float _speed = 1.0f;
+    private float _damage = 10.0f;
+    private float _force = 1.0f;
     private bool _isMoveLeft = false;
 
     private void Awake()
@@ -43,14 +45,11 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<PlayerAnimations>(out PlayerAnimations component))
+        if (collision.TryGetComponent<PlayerHealth>(out PlayerHealth component))
         {
-            component.Die();
-            collision.TryGetComponent<PlayerMovement>(out PlayerMovement movement);
-            movement.enabled = false;
-            StopCoroutine(_patrol);
-            _animator.SetTrigger(Trigger);
-            _speed = 0;
+            component.TakeDamage(_damage);
+            collision.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody2D);
+            rigidbody2D.AddForce((Vector2.up + (_isMoveLeft ? Vector2.left : Vector2.right)) * _force, ForceMode2D.Impulse);
         }
     }
 
