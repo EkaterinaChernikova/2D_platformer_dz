@@ -3555,6 +3555,7 @@ MonoBehaviour:
   _healthBar: {fileID: 1796293885}
   _playerAnimations: {fileID: 1651911629}
   _playerMovement: {fileID: 1651911627}
+  _healthPoints: 100
 --- !u!1 &1676476998
 GameObject:
   m_ObjectHideFlags: 0
@@ -3950,6 +3951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bar: {fileID: 1790143215}
+  _playerHealth: {fileID: 1651911630}
 --- !u!1 &1843353655
 GameObject:
   m_ObjectHideFlags: 0

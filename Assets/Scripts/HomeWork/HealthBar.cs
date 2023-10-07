@@ -6,10 +6,11 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     private const float MinValue = 0.0f;
-    private const float MaxValue = 100.0f;
 
     [SerializeField] private Slider _bar;
+    [SerializeField] private PlayerHealth _playerHealth;
 
+    private float _maxValue;
     private float _cheangeSpeed = 100.0f;
     private float _targetValue;
     private Image _barImage;
@@ -26,38 +27,37 @@ public class HealthBar : MonoBehaviour
     {
         _colorKeys = new GradientColorKey[] { _greenZone, _yellowZone, _redZone };
         _alphaKeys = new GradientAlphaKey[] { _minimalAlpha, _maximalAlpha };
+        _barGradient.SetKeys(_colorKeys, _alphaKeys);
         _barImage = _bar.fillRect.GetComponent<Image>();
+        _barImage.color = Color.green;
+        _maxValue = _playerHealth.GetHealthPoints();
         _bar.minValue = MinValue;
-        _bar.maxValue = MaxValue;
+        _bar.maxValue = _maxValue;
         _bar.value = _bar.maxValue;
         _targetValue = _bar.value;
-        _barGradient.SetKeys(_colorKeys, _alphaKeys);
     }
 
     private void Update()
     {
-        _barImage.color = _barGradient.Evaluate(_bar.value / MaxValue);
-
         if (_targetValue != _bar.value)
         {
             ChangeValue();
+        }
+        else if (_bar.value == 0)
+        {
+            _playerHealth.Die();
         }
     }
 
     private void ChangeValue()
     {
-        _targetValue = Mathf.Clamp(_targetValue, MinValue, MaxValue);
-
+        _targetValue = Mathf.Clamp(_targetValue, MinValue, _maxValue);
         _bar.value = Mathf.MoveTowards(_bar.value, _targetValue, _cheangeSpeed * Time.deltaTime);
+        _barImage.color = _barGradient.Evaluate(_bar.value / _maxValue);
     }
 
     public void SetTargetValue(float value)
     {
         _targetValue += value;
-    }
-
-    public float GetCurrentValue()
-    {
-        return _bar.value;
     }
 }
