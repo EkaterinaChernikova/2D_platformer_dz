@@ -378,14 +378,17 @@
 "Assets/Ethan the Hero/Script/PlayerMovement/PlayerMovement.cs"
 "Assets/Ethan the Hero/Script/PlayerMovement/PlayerMovementData.cs"
 "Assets/Scripts/Buttons.cs"
+"Assets/Scripts/Cat.cs"
 "Assets/Scripts/Coin.cs"
 "Assets/Scripts/CoinsSpawner.cs"
 "Assets/Scripts/Counter.cs"
-"Assets/Scripts/Enemy.cs"
-"Assets/Scripts/HomeWork/HealthBar.cs"
 "Assets/Scripts/HomeWork/PlayerHealth.cs"
 "Assets/Scripts/PlayerAnimations.cs"
 "Assets/Scripts/PlayerMovement.cs"
+"Assets/Scripts/StateMashine/Enemy.cs"
+"Assets/Scripts/StateMashine/EnemyStateMashine.cs"
+"Assets/Scripts/StateMashine/State.cs"
+"Assets/Scripts/StateMashine/Transition.cs"
 -langversion:9.0
 
 /deterministic
