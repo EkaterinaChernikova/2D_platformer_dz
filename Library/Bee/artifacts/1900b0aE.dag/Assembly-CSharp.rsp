@@ -382,6 +382,7 @@
 "Assets/Scripts/Coin.cs"
 "Assets/Scripts/CoinsSpawner.cs"
 "Assets/Scripts/Counter.cs"
+"Assets/Scripts/HomeWork/HealthBar.cs"
 "Assets/Scripts/HomeWork/PlayerHealth.cs"
 "Assets/Scripts/PlayerAnimations.cs"
 "Assets/Scripts/PlayerMovement.cs"

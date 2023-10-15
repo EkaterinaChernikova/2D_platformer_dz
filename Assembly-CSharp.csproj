@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Cat.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\StateMashine\EnemyStateMashine.cs" />
+    <Compile Include="Assets\Scripts\HomeWork\HealthBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
