@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,19 +11,12 @@ public class PlayerHealth : MonoBehaviour
 
     private float _maxValue;
     private float _currentHealth;
+    public Action onChangeValue;
 
     private void Start()
     {
         _maxValue = _healthPoints;
         _currentHealth = _maxValue;
-    }
-
-    private void Update()
-    {
-        if (_currentHealth == 0)
-        {
-            Die();
-        }
     }
 
     private void Die()
@@ -33,11 +27,20 @@ public class PlayerHealth : MonoBehaviour
 
     private void SetHealthValue(float value)
     {
-        if (_currentHealth != 0)
+        if (_currentHealth == 0)
         {
-            _currentHealth += value;
-            _currentHealth = Mathf.Clamp(_currentHealth, MinValue, _maxValue);
+            return;
         }
+
+        _currentHealth += value;
+        _currentHealth = Mathf.Clamp(_currentHealth, MinValue, _maxValue);
+
+        if (_currentHealth == 0)
+        {
+            Die();
+        }
+
+        onChangeValue?.Invoke();
     }
 
     public void TakeHeal(float value)

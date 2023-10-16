@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class HealthBar : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private PlayerHealth _playerHealth;
 
     private float _cheangeSpeed = 100.0f;
+    private Coroutine _changeValueCoroutine;
     private Image _barImage;
     private Gradient _barGradient = new Gradient();
     private GradientColorKey[] _colorKeys;
@@ -19,6 +21,16 @@ public class HealthBar : MonoBehaviour
     private GradientAlphaKey _minimalAlpha = new GradientAlphaKey(1.0f, 0.0f);
     private GradientAlphaKey _maximalAlpha = new GradientAlphaKey(1.0f, 1.0f);
 
+    private void OnEnable()
+    {
+        _playerHealth.onChangeValue += StartChangeValue;
+    }
+
+    private void OnDisable()
+    {
+        _playerHealth.onChangeValue -= StartChangeValue;
+    }
+
     private void Start()
     {
         _colorKeys = new GradientColorKey[] { _greenZone, _yellowZone, _redZone };
@@ -28,19 +40,26 @@ public class HealthBar : MonoBehaviour
         _barImage.color = Color.green;
         _bar.maxValue = _playerHealth.GetMaxValue();
         _bar.minValue = MinValue;
+        StartChangeValue();
     }
 
-    private void Update()
+    private void StartChangeValue()
     {
-        if (_playerHealth.GetValue() != _bar.value)
+        if (_changeValueCoroutine != null)
         {
-            ChangeValue();
+            StopCoroutine(_changeValueCoroutine);
         }
+
+        _changeValueCoroutine = StartCoroutine(ChangeValue());
     }
 
-    private void ChangeValue()
+    IEnumerator ChangeValue()
     {
-        _barImage.color = _barGradient.Evaluate(_bar.value / _bar.maxValue);
-        _bar.value = Mathf.MoveTowards(_bar.value, _playerHealth.GetValue(), _cheangeSpeed * Time.deltaTime);
+        while (_bar.value != _playerHealth.GetValue())
+        {
+            _barImage.color = _barGradient.Evaluate(_bar.value / _bar.maxValue);
+            _bar.value = Mathf.MoveTowards(_bar.value, _playerHealth.GetValue(), _cheangeSpeed * Time.deltaTime);
+            yield return null;
+        }
     }
 }
