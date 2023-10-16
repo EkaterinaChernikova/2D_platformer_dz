@@ -8,6 +8,7 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Slider _bar;
     [SerializeField] private PlayerHealth _playerHealth;
 
+    private float _cheangeSpeed = 100.0f;
     private Image _barImage;
     private Gradient _barGradient = new Gradient();
     private GradientColorKey[] _colorKeys;
@@ -39,7 +40,7 @@ public class HealthBar : MonoBehaviour
 
     private void ChangeValue()
     {
-        _bar.value = _playerHealth.GetValue();
         _barImage.color = _barGradient.Evaluate(_bar.value / _bar.maxValue);
+        _bar.value = Mathf.MoveTowards(_bar.value, _playerHealth.GetValue(), _cheangeSpeed * Time.deltaTime);
     }
 }

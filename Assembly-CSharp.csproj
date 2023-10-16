@@ -63,13 +63,13 @@
     <Compile Include="Assets\Scripts\PlayerAnimations.cs" />
     <Compile Include="Assets\Scripts\HomeWork\PlayerHealth.cs" />
     <Compile Include="Assets\Scripts\CoinsSpawner.cs" />
+    <Compile Include="Assets\Scripts\HomeWork\HealthBar.cs" />
     <Compile Include="Assets\Ethan the Hero\Script\PlayerAttackMethod.cs" />
     <Compile Include="Assets\Scripts\Buttons.cs" />
     <Compile Include="Assets\Scripts\StateMashine\Transition.cs" />
     <Compile Include="Assets\Scripts\Cat.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\StateMashine\EnemyStateMashine.cs" />
-    <Compile Include="Assets\Scripts\HomeWork\HealthBar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
