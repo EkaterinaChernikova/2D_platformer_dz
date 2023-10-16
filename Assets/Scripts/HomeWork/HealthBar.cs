@@ -23,12 +23,12 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        _playerHealth.onChangeValue += StartChangeValue;
+        _playerHealth.ValueChanged += OnValueChanged;
     }
 
     private void OnDisable()
     {
-        _playerHealth.onChangeValue -= StartChangeValue;
+        _playerHealth.ValueChanged -= OnValueChanged;
     }
 
     private void Start()
@@ -40,10 +40,10 @@ public class HealthBar : MonoBehaviour
         _barImage.color = Color.green;
         _bar.maxValue = _playerHealth.GetMaxValue();
         _bar.minValue = MinValue;
-        StartChangeValue();
+        OnValueChanged();
     }
 
-    private void StartChangeValue()
+    private void OnValueChanged()
     {
         if (_changeValueCoroutine != null)
         {

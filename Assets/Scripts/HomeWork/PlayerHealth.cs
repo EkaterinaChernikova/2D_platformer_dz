@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour
 
     private float _maxValue;
     private float _currentHealth;
-    public Action onChangeValue;
+    public event Action ValueChanged;
 
     private void Start()
     {
@@ -40,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
             Die();
         }
 
-        onChangeValue?.Invoke();
+        ValueChanged?.Invoke();
     }
 
     public void TakeHeal(float value)
