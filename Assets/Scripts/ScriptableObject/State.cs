@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public abstract class State : ScriptableObject
+public interface IState
 {
-    public bool isFinished { get; protected set; }
-    
-    public virtual void Init() { }
+    void Enter();
 
-    public abstract void Run();
+    void Run();
+
+    void Exit();
 }

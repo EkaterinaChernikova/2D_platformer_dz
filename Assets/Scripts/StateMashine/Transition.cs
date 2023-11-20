@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class Transition : MonoBehaviour
 {
-    [SerializeField] private State _targetState;
+    //[SerializeField] private State _targetState;
 
     //protected PlayerAnimations Target { get; private set; }
     //

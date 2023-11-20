@@ -53,13 +53,18 @@
     <UnityVersion>2021.3.16f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\StateMashine\AttackState.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Ethan the Hero\Script\PlayerMovement\PlayerMovementData.cs" />
     <Compile Include="Assets\Scripts\StateMashine\Enemy.cs" />
+    <Compile Include="Assets\Scripts\StateMashine\IdleState.cs" />
+    <Compile Include="Assets\Scripts\StateMashine\StateMachine.cs" />
+    <Compile Include="Assets\Scripts\StateMashine\PatrolState.cs" />
     <Compile Include="Assets\Scripts\ScriptableObject\State.cs" />
     <Compile Include="Assets\Scripts\StateMashine\State_.cs" />
     <Compile Include="Assets\Ethan the Hero\Script\PlayerAnimation.cs" />
     <Compile Include="Assets\Ethan the Hero\Script\PlayerMovement\PlayerMovement.cs" />
+    <Compile Include="Assets\Scripts\StateMashine\Detector.cs" />
     <Compile Include="Assets\Scripts\Counter.cs" />
     <Compile Include="Assets\Scripts\PlayerAnimations.cs" />
     <Compile Include="Assets\Scripts\HomeWork\PlayerHealth.cs" />
@@ -70,7 +75,7 @@
     <Compile Include="Assets\Scripts\StateMashine\Transition.cs" />
     <Compile Include="Assets\Scripts\Cat.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
-    <Compile Include="Assets\Scripts\StateMashine\EnemyStateMashine.cs" />
+    <Compile Include="Assets\Scripts\StateMashine\EnemyStateMashine_.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

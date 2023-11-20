@@ -4,9 +4,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]
 
-public class EnemyStateMashine : MonoBehaviour
+public class EnemyStateMashine_ : MonoBehaviour
 {
-    [SerializeField] private State _firstState;
+    //[SerializeField] private State _firstState;
 
     //private Player _target;
     //private State _currentState;
