@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Detector : MonoBehaviour
 {
-    public bool isDetected { get; private set; } = false;
-    public bool isTouched { get; private set; } = false;
-    public bool isDead { get; private set; } = false;
-
     private Vector2 _targetPosition;
     private Rigidbody2D _targetRigidbody2D;
     private PlayerHealth _targetHealth;
+
+    public bool isDetected { get; private set; } = false;
+    public bool isTouched { get; private set; } = false;
+    public bool isDead { get; private set; } = false;
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -18,7 +18,7 @@ public class Detector : MonoBehaviour
         {
             isTouched = true;
             collision.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D targetRigidbody2D);
-            this._targetRigidbody2D = targetRigidbody2D;
+            _targetRigidbody2D = targetRigidbody2D;
             isDead = component.GetValue() == 0 ? true : false;
             _targetHealth = component;
         }
@@ -62,12 +62,5 @@ public class Detector : MonoBehaviour
     public PlayerHealth GetTargetHealth()
     {
         return _targetHealth;
-    }
-
-    public void ResetConditions()
-    {
-        isDetected = false;
-        isDead = false;
-        isTouched = false;
     }
 }

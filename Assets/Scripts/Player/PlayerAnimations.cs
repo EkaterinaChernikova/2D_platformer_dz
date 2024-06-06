@@ -78,12 +78,11 @@ public class PlayerAnimations : MonoBehaviour
 
         if (_isInAir == false)
         {
-            if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A))
+            if (Input.GetAxisRaw("Horizontal") == 0)
             {
                 SwitchAnimation(Idle);
             }
-
-            if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
+            else
             {
                 SwitchAnimation(Run);
             }

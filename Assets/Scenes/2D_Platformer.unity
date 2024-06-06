@@ -1207,7 +1207,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 18
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -3013,7 +3013,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310b620d43024dc4e9ef79876c10679a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 324490951}
 --- !u!61 &1419819793
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3554,7 +3553,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310b620d43024dc4e9ef79876c10679a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 324490951}
 --- !u!61 &1626487867
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3763,7 +3761,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 2675fc124a8b71e43ba9923caff455d8, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -3781,7 +3779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 4
-  _jumpForce: 7
+  _jumpForce: 8
 --- !u!95 &1651911628
 Animator:
   serializedVersion: 5
@@ -4720,7 +4718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310b620d43024dc4e9ef79876c10679a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawner: {fileID: 324490951}
 --- !u!61 &1924172965
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -393,6 +393,7 @@
 "Assets/Scripts/HomeWork/PatrolState.cs"
 "Assets/Scripts/HomeWork/State.cs"
 "Assets/Scripts/HomeWork/StateMachine.cs"
+"Assets/Scripts/HomeWork_MultyHealthBar/PersonalHealth.cs"
 "Assets/Scripts/Player/HealthBar.cs"
 "Assets/Scripts/Player/PlayerAnimations.cs"
 "Assets/Scripts/Player/PlayerHealth.cs"

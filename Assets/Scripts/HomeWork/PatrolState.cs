@@ -24,7 +24,7 @@ public class PatrolState : IState
 
     private void SetAnimation()
     {
-        _stateObject.cat.SwitchAnimation(Patrol);
+        _stateObject.Cat.SwitchAnimation(Patrol);
     }
 
     private void SetTimer()
@@ -41,13 +41,13 @@ public class PatrolState : IState
 
     private void SendResults()
     {
-        _stateObject.SetConditions(_stateObject.detector.isDead, _stateObject.detector.isDetected);
+        _stateObject.SetConditions(_stateObject.Detector.isDead, _stateObject.Detector.isDetected);
         _stateObject.ChangeState();
     }
 
     public void Enter()
     {
-        _speed = _stateObject.cat.speed;
+        _speed = _stateObject.Cat.speed;
         SetTimer();
         SetAnimation();
         ChangeDirection();
@@ -76,7 +76,7 @@ public class PatrolState : IState
             ChangeDirection();
         }
 
-        if (_stateObject.detector.isDetected == true)
+        if (_stateObject.Detector.isDetected == true)
         {
             SendResults();
         }

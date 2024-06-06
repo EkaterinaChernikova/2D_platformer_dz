@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AttackState : IState
@@ -36,36 +34,36 @@ public class AttackState : IState
 
     private void SetAnimation(string jumpState)
     {
-        _stateObject.cat.SwitchAnimation(jumpState);
+        _stateObject.Cat.SwitchAnimation(jumpState);
     }
 
     private void SendResults()
     {
-        _stateObject.SetConditions(_stateObject.detector.isDead, _stateObject.detector.isDetected);
+        _stateObject.SetConditions(_stateObject.Detector.isDead, _stateObject.Detector.isDetected);
         _stateObject.ChangeState();
     }
 
     public void Enter()
     {
-        _damage = _stateObject.cat.damage;
+        _damage = _stateObject.Cat.damage;
     }
 
     public void Run()
     {
         if (_isGrounded == true)
         {
-            if (_stateObject.detector.isDetected == true)
+            if (_stateObject.Detector.isDetected == true)
             {
                 _isPunched = false;
                 _isGrounded = false;
-                _isJumpLeft = _stateObject.cat.transform.position.x > _stateObject.detector.GetTargetPosition().x ? true : false;
+                _isJumpLeft = _stateObject.Cat.transform.position.x > _stateObject.Detector.GetTargetPosition().x ? true : false;
                 _jumpDirection = _isJumpLeft ? Vector2.left : Vector2.right;
                 _spriteRenderer.flipX = _isJumpLeft;
                 _verticalForce = Random.Range(_verticalJumpForce * _minimalForceCorrection, _verticalJumpForce * _maximalForceCorrection);
                 _horizontalForce = Random.Range(_horizontalJumpForce * _minimalForceCorrection, _horizontalJumpForce * _maximalForceCorrection);
                 _rigidbody2D.AddForce(Vector2.up * _verticalForce + _jumpDirection * _horizontalForce, ForceMode2D.Impulse);
             }
-            else if (_stateObject.detector.isDetected == false)
+            else if (_stateObject.Detector.isDetected == false)
             {
                 SendResults();
             }
@@ -85,15 +83,15 @@ public class AttackState : IState
                 _isGrounded = true;
             }
 
-            if (_stateObject.detector.isTouched == true && 
-                _stateObject.detector.isDead == false &&
+            if (_stateObject.Detector.isTouched == true && 
+                _stateObject.Detector.isDead == false &&
                 _isPunched == false)
             {
                 _isPunched = true;
-                _stateObject.detector.GetTargetHealth().TakeDamage(_damage);
-                _stateObject.detector.GetTargetRigidbody().AddForce((Vector2.up + _jumpDirection) * _punchForce, ForceMode2D.Impulse);
+                _stateObject.Detector.GetTargetHealth().TakeDamage(_damage);
+                _stateObject.Detector.GetTargetRigidbody().AddForce((Vector2.up + _jumpDirection) * _punchForce, ForceMode2D.Impulse);
             }
-            else if (_stateObject.detector.isDead == true)
+            else if (_stateObject.Detector.isDead == true)
             {
                 SendResults();
             }

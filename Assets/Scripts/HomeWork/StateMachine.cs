@@ -12,13 +12,13 @@ public class StateMachine : MonoBehaviour
     private bool _isPlayerDead;
     private bool _isPlayerDetected;
 
-    public Detector detector { get; private set; }
-    public Cat cat { get; private set; }
+    public Detector Detector { get; private set; }
+    public Cat Cat { get; private set; }
 
     private void Start()
     {
-        cat = gameObject.GetComponent<Cat>();
-        detector = GetComponent<Detector>();
+        Cat = gameObject.GetComponent<Cat>();
+        Detector = GetComponent<Detector>();
         InitStates();
         SetStateByDefault(GetState<PatrolState>());
     }

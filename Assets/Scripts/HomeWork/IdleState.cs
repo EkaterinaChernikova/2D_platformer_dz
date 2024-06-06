@@ -15,18 +15,18 @@ public class IdleState : IState
 
     private void SendResults()
     {
-        _stateObject.SetConditions(_stateObject.detector.isDead, _stateObject.detector.isDetected);
+        _stateObject.SetConditions(_stateObject.Detector.isDead, _stateObject.Detector.isDetected);
         _stateObject.ChangeState();
     }
 
     public void Enter()
     {
-        _stateObject.cat.SwitchAnimation(Idle);
+        _stateObject.Cat.SwitchAnimation(Idle);
     }
 
     public void Run()
     {
-        if (_stateObject.detector.isDead == false)
+        if (_stateObject.Detector.isDead == false)
         {
             SendResults();
         }

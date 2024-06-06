@@ -1,16 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(BoxCollider2D))]
 
 public class Coin : MonoBehaviour
 {
-    [SerializeField] private CoinsSpawner _spawner; 
-
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _collider;
+
+    public event Action<Coin> CoinTouched;
 
     private void Awake()
     {
@@ -20,7 +19,7 @@ public class Coin : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        _spawner.SetTouchedCoin(this);
+        CoinTouched?.Invoke(this);
     }
 
     public void SetVisibility(bool isOn)

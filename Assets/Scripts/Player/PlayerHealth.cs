@@ -26,9 +26,9 @@ public class PlayerHealth : MonoBehaviour
         _playerMovement.enabled = false;
     }
 
-    private void SetHealthValue(float value)
+    private void ChangeHealthValue(float value)
     {
-        if (_currentHealth == 0)
+        if (_currentHealth == MinValue)
         {
             return;
         }
@@ -36,7 +36,7 @@ public class PlayerHealth : MonoBehaviour
         _currentHealth += value;
         _currentHealth = Mathf.Clamp(_currentHealth, MinValue, _maxValue);
 
-        if (_currentHealth == 0)
+        if (_currentHealth == MinValue)
         {
             Die();
         }
@@ -46,12 +46,12 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeHeal(float value)
     {
-        SetHealthValue(value);
+        ChangeHealthValue(value);
     }
 
     public void TakeDamage(float value)
     {
-        SetHealthValue(-value);
+        ChangeHealthValue(-value);
     }
 
     public float GetValue()
