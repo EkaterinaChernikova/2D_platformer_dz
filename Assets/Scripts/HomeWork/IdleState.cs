@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,29 +6,38 @@ public class IdleState : IState
 {
     private const string Idle = "isIdle";
 
-    private StateMachine _stateObject;
+    private Detector _detector;
+    private CatAnimation _catAnimation;
+    private bool _isTargetDead;
+    public event Action onStateEnd;
 
-    public IdleState(StateMachine stateMachine)
+    public IdleState(Detector detector, CatAnimation catAnimation)
     {
-        _stateObject = stateMachine;
+        _detector = detector;
+        _catAnimation = catAnimation;
+        _detector.onTargetDetected += SetIsDead;
     }
 
-    private void SendResults()
+    private void SetIsDead(bool isDead)
     {
-        _stateObject.SetConditions(_stateObject.Detector.isDead, _stateObject.Detector.isDetected);
-        _stateObject.ChangeState();
+        _isTargetDead = isDead;
+    }
+
+    private void Exit()
+    {
+        onStateEnd?.Invoke();
     }
 
     public void Enter()
     {
-        _stateObject.Cat.SwitchAnimation(Idle);
+        _catAnimation.SwitchAnimation(Idle);
     }
 
     public void Run()
     {
-        if (_stateObject.Detector.isDead == false)
+        if (_isTargetDead == false)
         {
-            SendResults();
+            Exit();
         }
     }
 }

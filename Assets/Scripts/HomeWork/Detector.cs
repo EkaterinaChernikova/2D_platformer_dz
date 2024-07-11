@@ -1,66 +1,58 @@
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(BoxCollider2D))]
 
 public class Detector : MonoBehaviour
 {
-    private Vector2 _targetPosition;
-    private Rigidbody2D _targetRigidbody2D;
-    private PlayerHealth _targetHealth;
+    public Transform targetTransform { get; private set; }
+    public PlayerHealth targetHealth { get; private set; }
+    public Rigidbody2D playerRigidbody2D { get; private set; }
 
-    public bool isDetected { get; private set; } = false;
-    public bool isTouched { get; private set; } = false;
-    public bool isDead { get; private set; } = false;
+    public event Action<bool> onTargetDetected;
+    public event Action<bool> onTargetTouched;
+    public event Action<bool> onTargetDead;
+
+    private bool IsTargetDead()
+    {
+        return targetHealth.GetValue() == 0 ? true : false;
+    }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth component))
+        if (collision.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
         {
-            isTouched = true;
-            collision.gameObject.TryGetComponent<Rigidbody2D>(out Rigidbody2D targetRigidbody2D);
-            _targetRigidbody2D = targetRigidbody2D;
-            isDead = component.GetValue() == 0 ? true : false;
-            _targetHealth = component;
+            onTargetTouched?.Invoke(true);
+            targetTransform = collision.transform;
+            targetHealth = playerHealth;
+            playerRigidbody2D = collision.transform.GetComponent<Rigidbody2D>();
         }
     }
 
     public void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth component))
+        if (collision.gameObject.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
         {
-            isTouched = false;
+            onTargetTouched?.Invoke(false); 
         }
     }
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<PlayerHealth>(out PlayerHealth component))
+        if (collision.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
         {
-            isDetected = true;
-            _targetPosition = collision.transform.position;
+            onTargetDetected?.Invoke(true);
+            targetTransform = collision.transform;
+            targetHealth = playerHealth;
+            onTargetDead?.Invoke(IsTargetDead());
         }
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<PlayerHealth>(out PlayerHealth component))
+        if (collision.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
         {
-            isDetected = false;
+            onTargetDetected?.Invoke(false);
         }
-    }
-
-    public Vector2 GetTargetPosition()
-    {
-        return _targetPosition;
-    }
-
-    public Rigidbody2D GetTargetRigidbody()
-    {
-        return _targetRigidbody2D;
-    }
-
-    public PlayerHealth GetTargetHealth()
-    {
-        return _targetHealth;
     }
 }

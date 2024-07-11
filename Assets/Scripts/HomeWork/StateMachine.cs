@@ -4,32 +4,61 @@ using UnityEngine;
 
 [RequireComponent(typeof(Cat))]
 [RequireComponent(typeof(Detector))]
+[RequireComponent(typeof(CatAnimation))]
+[RequireComponent(typeof(CatMovement))]
 
 public class StateMachine : MonoBehaviour
 {
-    private Dictionary<Type, IState> _posibleStates;
     private IState _currentState;
+    private Dictionary<Type, IState> _posibleStates;
+    private CatAnimation _catAnimation;
+    private CatMovement _catMovement;
     private bool _isPlayerDead;
     private bool _isPlayerDetected;
 
-    public Detector Detector { get; private set; }
+    private Detector _detector;
     public Cat Cat { get; private set; }
+
+    private void OnDisable()
+    {
+        _detector.onTargetDetected -= SetIsPlayerDetected;
+        _detector.onTargetDead -= SetIsPlayerDead;
+
+        foreach (IState state in _posibleStates.Values)
+        {
+            state.onStateEnd -= ChangeState;
+        }
+    }
 
     private void Start()
     {
         Cat = gameObject.GetComponent<Cat>();
-        Detector = GetComponent<Detector>();
+        _detector = GetComponent<Detector>();
+        _catAnimation = GetComponent<CatAnimation>();
+        _catMovement = GetComponent<CatMovement>();
         InitStates();
         SetStateByDefault(GetState<PatrolState>());
+        SetActions();
     }
 
     private void InitStates()
     {
         _posibleStates = new Dictionary<Type, IState>();
 
-        _posibleStates[typeof(IdleState)] = new IdleState(this);
-        _posibleStates[typeof(AttackState)] = new AttackState(this);
-        _posibleStates[typeof(PatrolState)] = new PatrolState(this);
+        _posibleStates[typeof(IdleState)] = new IdleState(_detector, _catAnimation);
+        _posibleStates[typeof(AttackState)] = new AttackState(_detector, _catAnimation, _catMovement);
+        _posibleStates[typeof(PatrolState)] = new PatrolState(_detector, _catAnimation, _catMovement);
+    }
+
+    private void SetActions()
+    {
+        _detector.onTargetDetected += SetIsPlayerDetected;
+        _detector.onTargetDead += SetIsPlayerDead;
+
+        foreach (IState state in _posibleStates.Values)
+        {
+            state.onStateEnd += ChangeState;
+        }
     }
 
     private void SetState(IState nextState)
@@ -53,7 +82,7 @@ public class StateMachine : MonoBehaviour
         _currentState?.Run();
     }
 
-    public void ChangeState()
+    private void ChangeState()
     {
         if (_isPlayerDead == true && _isPlayerDetected == true)
         {
@@ -63,15 +92,19 @@ public class StateMachine : MonoBehaviour
         {
             SetState(GetState<AttackState>());
         }
-        else if (_isPlayerDead == false && _isPlayerDetected == false)
+        else if (_isPlayerDetected == false)
         {
             SetState(GetState<PatrolState>());
         }
     }
 
-    public void SetConditions(bool isPlayerDead, bool isPlayerDetected)
+    private void SetIsPlayerDetected(bool isDetected)
     {
-        _isPlayerDead = isPlayerDead;
-        _isPlayerDetected = isPlayerDetected;
+        _isPlayerDetected = isDetected;
+    }
+
+    private void SetIsPlayerDead(bool isDead)
+    {
+        _isPlayerDead = isDead;
     }
 }

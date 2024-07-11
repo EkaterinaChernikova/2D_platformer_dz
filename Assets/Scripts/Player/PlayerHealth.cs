@@ -7,6 +7,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] private PlayerAnimations _playerAnimations;
     [SerializeField] private PlayerMovement _playerMovement;
+    [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private float _healthPoints = 100.0f;
 
     private float _maxValue;

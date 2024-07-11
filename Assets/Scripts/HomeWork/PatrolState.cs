@@ -1,84 +1,68 @@
 using UnityEngine;
+using System;
 
 public class PatrolState : IState
 {
     private const float AverageValue = 0.5f;
     private const string Patrol = "isPatrol";
 
-    private StateMachine _stateObject;
-    private SpriteRenderer _spriteRenderer;
+    private Detector _detector;
+    private CatMovement _catMovement;
+    private CatAnimation _catAnimation;
 
-    private float _walkBorder = 5.0f;
     private float _minimalDelay = 1.0f;
     private float _maximalDelay = 5.0f;
     private float _delay;
     private float _timer;
-    private float _speed;
     private bool _isMoveLeft;
+    private bool _isTargetDetected;
 
-    public PatrolState(StateMachine stateMachine)
-    {
-        _stateObject = stateMachine;
-        _spriteRenderer = _stateObject.GetComponent<SpriteRenderer>();
-    }
+    public event Action onStateEnd;
 
-    private void SetAnimation()
+    public PatrolState(Detector detector, CatAnimation catAnimation, CatMovement catMovement)
     {
-        _stateObject.Cat.SwitchAnimation(Patrol);
+        _detector = detector;
+        _catMovement = catMovement;
+        _catAnimation = catAnimation;
+        _detector.onTargetDetected += SetDetection;
     }
 
     private void SetTimer()
     {
-        _delay = Random.Range(_minimalDelay, _maximalDelay);
+        _delay = UnityEngine.Random.Range(_minimalDelay, _maximalDelay);
         _timer = 0.0f;
-    }
-
-    private void ChangeDirection()
-    {
-        _isMoveLeft = (Random.value > AverageValue);
-        _spriteRenderer.flipX = _isMoveLeft;
-    }
-
-    private void SendResults()
-    {
-        _stateObject.SetConditions(_stateObject.Detector.isDead, _stateObject.Detector.isDetected);
-        _stateObject.ChangeState();
     }
 
     public void Enter()
     {
-        _speed = _stateObject.Cat.speed;
         SetTimer();
-        SetAnimation();
-        ChangeDirection();
+        _catAnimation.SwitchAnimation(Patrol);
     }
 
     public void Run()
     {
-        _stateObject.transform.Translate(Vector3.right * _speed * Time.deltaTime * (_isMoveLeft ? -1 : 1));
-
-        if (_stateObject.transform.position.x < -_walkBorder)
-        {
-            _isMoveLeft = false;
-            _spriteRenderer.flipX = false;
-        }
-        else if (_stateObject.transform.position.x > _walkBorder)
-        {
-            _isMoveLeft = true;
-            _spriteRenderer.flipX = true;
-        }
-
+        _catMovement.Move();
         _timer += Time.deltaTime;
 
         if (_timer > _delay)
         {
             SetTimer();
-            ChangeDirection();
+            _catMovement.ChangeDirection();
         }
 
-        if (_stateObject.Detector.isDetected == true)
+        if (_isTargetDetected == true)
         {
-            SendResults();
+            Exit();
         }
+    }
+
+    private void SetDetection(bool isDetected)
+    {
+        _isTargetDetected = isDetected;
+    }
+
+    private void Exit()
+    {
+        onStateEnd?.Invoke();
     }
 }

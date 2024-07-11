@@ -387,6 +387,8 @@
 "Assets/Scripts/Examples/Transition.cs"
 "Assets/Scripts/HomeWork/AttackState.cs"
 "Assets/Scripts/HomeWork/Cat.cs"
+"Assets/Scripts/HomeWork/CatAnimation.cs"
+"Assets/Scripts/HomeWork/CatMovement.cs"
 "Assets/Scripts/HomeWork/CatSpawner.cs"
 "Assets/Scripts/HomeWork/Detector.cs"
 "Assets/Scripts/HomeWork/IdleState.cs"

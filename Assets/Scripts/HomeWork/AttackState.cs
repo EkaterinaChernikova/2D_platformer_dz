@@ -1,100 +1,93 @@
 using UnityEngine;
+using System;
 
 public class AttackState : IState
 {
-    private const string JumpStart = "isJumpStart";
-    private const string JumpEnd = "isJumpEnd";
-
     private Rigidbody2D _rigidbody2D;
     private Rigidbody2D _targetRigidbody2D;
-    private SpriteRenderer _spriteRenderer;
     private StateMachine _stateObject;
+    private CatAnimation _catAnimation;
+    private CatMovement _catMovement;
+    private Detector _detector;
 
     private Vector2 _jumpDirection;
 
-    private float _damage;
+    private float _damage = 5.0f;
     private float _punchForce = 2.0f;
-    private float _horizontalJumpForce = 2.5f;
-    private float _verticalJumpForce = 3.0f;
-    private float _minimalForceCorrection = 0.9f;
-    private float _maximalForceCorrection = 1.1f;
-    private float _horizontalForce;
-    private float _verticalForce;
-
-    private bool _isGrounded = true;
     private bool _isJumpLeft;
     private bool _isPunched;
+    private bool _isDetected;
+    private bool _isTouched;
+    private bool _isDead;
+    public event Action onStateEnd;
 
-    public AttackState(StateMachine stateMachine)
+    public AttackState(Detector detector, CatAnimation catAnimation, CatMovement catMovement)
     {
-        _stateObject = stateMachine;
-        _spriteRenderer = _stateObject.GetComponent<SpriteRenderer>();
-        _rigidbody2D = _stateObject.GetComponent<Rigidbody2D>();
+        _detector = detector;
+        _catAnimation = catAnimation;
+        _catMovement = catMovement;
+        detector.onTargetDetected += SetDetection;
+        detector.onTargetTouched += SetIsTouched;
+        detector.onTargetDead += SetIsDead;
     }
 
-    private void SetAnimation(string jumpState)
+    private void SetDetection(bool isDetected)
     {
-        _stateObject.Cat.SwitchAnimation(jumpState);
+        _isDetected = isDetected;
     }
 
-    private void SendResults()
+    private void SetIsTouched(bool isTouched)
     {
-        _stateObject.SetConditions(_stateObject.Detector.isDead, _stateObject.Detector.isDetected);
-        _stateObject.ChangeState();
+        _isTouched = isTouched;
+    }
+
+    private void SetIsDead(bool isDead)
+    {
+        _isDead = isDead;
     }
 
     public void Enter()
     {
-        _damage = _stateObject.Cat.damage;
+
     }
 
     public void Run()
     {
-        if (_isGrounded == true)
+        if (_catMovement.IsGrounded == true)
         {
-            if (_stateObject.Detector.isDetected == true)
+            if (_isDetected == true)
             {
-                _isPunched = false;
-                _isGrounded = false;
-                _isJumpLeft = _stateObject.Cat.transform.position.x > _stateObject.Detector.GetTargetPosition().x ? true : false;
-                _jumpDirection = _isJumpLeft ? Vector2.left : Vector2.right;
-                _spriteRenderer.flipX = _isJumpLeft;
-                _verticalForce = Random.Range(_verticalJumpForce * _minimalForceCorrection, _verticalJumpForce * _maximalForceCorrection);
-                _horizontalForce = Random.Range(_horizontalJumpForce * _minimalForceCorrection, _horizontalJumpForce * _maximalForceCorrection);
-                _rigidbody2D.AddForce(Vector2.up * _verticalForce + _jumpDirection * _horizontalForce, ForceMode2D.Impulse);
+                InitJumpAttack();
             }
-            else if (_stateObject.Detector.isDetected == false)
+            else if (_isDetected == false)
             {
-                SendResults();
+                Exit();
             }
         }
-        else if (_isGrounded == false)
+        else if (_catMovement.IsGrounded == false)
         {
-            if (_rigidbody2D.velocity.y > 0)
-            {
-                SetAnimation(JumpStart);
-            }
-            else if (_rigidbody2D.velocity.y < 0)
-            {
-                SetAnimation(JumpEnd);
-            }
-            else if (_rigidbody2D.velocity.y == 0)
-            {
-                _isGrounded = true;
-            }
+            _catMovement.JumpProcessing();
 
-            if (_stateObject.Detector.isTouched == true && 
-                _stateObject.Detector.isDead == false &&
-                _isPunched == false)
+            if (_isTouched == true && _isDead == false && _isPunched == false)
             {
                 _isPunched = true;
-                _stateObject.Detector.GetTargetHealth().TakeDamage(_damage);
-                _stateObject.Detector.GetTargetRigidbody().AddForce((Vector2.up + _jumpDirection) * _punchForce, ForceMode2D.Impulse);
-            }
-            else if (_stateObject.Detector.isDead == true)
-            {
-                SendResults();
+                _detector.targetHealth.TakeDamage(_damage);
+                _detector.playerRigidbody2D.AddForce((Vector2.up + _jumpDirection) * _punchForce, ForceMode2D.Impulse);
             }
         }
+    }
+
+    private void InitJumpAttack()
+    {
+        _isPunched = false;
+        _isJumpLeft = _detector.transform.position.x > _detector.targetTransform.position.x ? true : false;
+        _jumpDirection = _isJumpLeft ? Vector2.left : Vector2.right;
+        _catAnimation.Flip(_isJumpLeft);
+        _catMovement.Jump(_jumpDirection);
+    }
+
+    private void Exit()
+    {
+        onStateEnd?.Invoke();
     }
 }
