@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D _rigidbody2D;
     private SpriteRenderer _spriteRenderer;
 
-    private KeyCode _gumpButton = KeyCode.Space;
+    private KeyCode _jumpButton = KeyCode.Space;
     private KeyCode _moveLeftButton = KeyCode.A;
     private KeyCode _moveRightButton = KeyCode.D;
     private float _direction;
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(_gumpButton) && _isInAir == false)
+        if (Input.GetKeyDown(_jumpButton) && _isInAir == false)
         {
             _rigidbody2D.velocity += Vector2.up * _jumpForce;
         }

@@ -74,11 +74,13 @@
     <Compile Include="Assets\Scripts\Player\HealthBar.cs" />
     <Compile Include="Assets\Ethan the Hero\Script\PlayerAttackMethod.cs" />
     <Compile Include="Assets\Scripts\Buttons.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerAttack.cs" />
     <Compile Include="Assets\Scripts\Examples\Transition.cs" />
     <Compile Include="Assets\Scripts\HomeWork\Cat.cs" />
     <Compile Include="Assets\Scripts\HomeWork\CatMovement.cs" />
     <Compile Include="Assets\Scripts\Coin.cs" />
     <Compile Include="Assets\Scripts\HomeWork_MultyHealthBar\PersonalHealth.cs" />
+    <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Examples\EnemyStateMashine_.cs" />
   </ItemGroup>
   <ItemGroup>

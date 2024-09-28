@@ -14,6 +14,7 @@ public class PlayerAnimations : MonoBehaviour
     private const string Jump = "IsJump";
     private const string Fall = "IsFall";
     private const string Dead = "IsDead";
+    private const string Attack = "IsAttack";
 
     [SerializeField] private Animator _animator;
 
@@ -30,6 +31,7 @@ public class PlayerAnimations : MonoBehaviour
 
     private bool _isDead = false;
     private bool _isInAir = false;
+    private bool _isInAttack = false;
 
     private void Start()
     {
@@ -76,7 +78,7 @@ public class PlayerAnimations : MonoBehaviour
             _isInAir = false;
         }
 
-        if (_isInAir == false)
+        if (_isInAir == false && _isInAttack == false)
         {
             if (Input.GetAxisRaw("Horizontal") == 0)
             {
@@ -87,6 +89,15 @@ public class PlayerAnimations : MonoBehaviour
                 SwitchAnimation(Run);
             }
         }
+
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
+        {
+            _isInAttack = true;
+        }
+        else
+        {
+            _isInAttack = false;
+        }
     }
 
     private void SwitchAnimation(string state)
@@ -95,6 +106,7 @@ public class PlayerAnimations : MonoBehaviour
         _animator.SetBool(Run, false);
         _animator.SetBool(Jump, false);
         _animator.SetBool(Fall, false);
+        _animator.SetBool(Attack, false);
 
         _animator.SetBool(state, true);
     }
@@ -106,6 +118,15 @@ public class PlayerAnimations : MonoBehaviour
             SwitchAnimation(Dead);
             _isDead = true;
             ChangeCollider();
+        }
+    }
+
+    public void AnimateAttack()
+    {
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01") == false &&
+            _isInAttack == false)
+        {
+            SwitchAnimation(Attack);
         }
     }
 }
