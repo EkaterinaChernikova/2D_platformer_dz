@@ -74,8 +74,17 @@ public class PlayerAnimations : MonoBehaviour
         }
         else
         {
-            SwitchAnimation(Idle);
+            //SwitchAnimation(Idle);
             _isInAir = false;
+        }
+
+        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
+        {
+            _isInAttack = true;
+        }
+        else
+        {
+            _isInAttack = false;
         }
 
         if (_isInAir == false && _isInAttack == false)
@@ -88,15 +97,6 @@ public class PlayerAnimations : MonoBehaviour
             {
                 SwitchAnimation(Run);
             }
-        }
-
-        if (_animator.GetCurrentAnimatorStateInfo(0).IsName("Attack01"))
-        {
-            _isInAttack = true;
-        }
-        else
-        {
-            _isInAttack = false;
         }
     }
 

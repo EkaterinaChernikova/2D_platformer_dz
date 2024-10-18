@@ -8,16 +8,24 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private int _damage = 25;
     [SerializeField] private float _strikeForce = 5.0f;
     [SerializeField] private float _attackDelay = 0.5f;
-    [SerializeField] private BoxCollider2D _attackCollider2D;
 
     private int _attackButton = 0;
 
     private Rigidbody2D _targetRigidbody2D;
     private float _timer = 0.0f;
+    private float _attackDistance = 1.75f;
     private bool _isAttacked;
     private bool _isAttack;
+    private bool _isInRange;
     private SpriteRenderer _spriteRenderer;
     private PlayerAnimations _animation;
+    private Vector2 _playerPosition;
+    private Vector2 _attackAreaOffsetPointA = new Vector2(0f, -0.7f);
+    private Vector2 _attackAreaOffsetPointB = new Vector2(1.25f, 0.75f);
+    private Vector2 _attackAreaPointA;
+    private Vector2 _attackAreaPointB;
+    private Vector2 _attackSideCorrection;
+    private Collider2D[] _targets;
 
     private void Start()
     {
@@ -27,9 +35,8 @@ public class PlayerAttack : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(_attackButton) == true)
+        if (Input.GetMouseButtonDown(_attackButton) == true && _isAttack == false)
         {
-            Debug.Log("Attack");
             _isAttack = true;
         }
 
@@ -46,7 +53,7 @@ public class PlayerAttack : MonoBehaviour
         if (_isAttacked == false)
         {
             _animation.AnimateAttack();
-            _targetRigidbody2D?.AddForce(_strikeForce * Vector2.right * (_spriteRenderer.flipX ? -1 : 1));
+            Strike();
             _isAttacked = true;
         }
 
@@ -58,11 +65,31 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void Strike()
     {
-        if (collision.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody2D))
+        _playerPosition = new Vector2(transform.position.x, transform.position.y);
+        _attackSideCorrection = Vector2.up + Vector2.right * (_spriteRenderer.flipX ? -1 : 1);
+        _attackAreaPointA = (_playerPosition + _attackAreaOffsetPointA) * _attackSideCorrection;
+        _attackAreaPointB = (_playerPosition + _attackAreaOffsetPointB) * _attackSideCorrection;
+        _targets = Physics2D.OverlapAreaAll(_attackAreaPointA, _attackAreaPointB);
+        
+        foreach(Collider2D target in _targets)
         {
-            _targetRigidbody2D = rigidbody2D;
+            _targetRigidbody2D = target.GetComponent<Rigidbody2D>();
+
+            if (_attackDistance >= Vector2.Distance(transform.position, target.transform.position))
+            {
+                _isInRange = true;
+            }
+
+            if (_targetRigidbody2D != null && _targetRigidbody2D.gameObject.name != "Player" && _isInRange == true)
+            {
+                _targetRigidbody2D.AddForce(Vector2.right * (_spriteRenderer.flipX ? -1 : 1) * _strikeForce, ForceMode2D.Impulse);
+            }
+
+            _isInRange = false;
         }
+
+        _targets = null;
     }
 }

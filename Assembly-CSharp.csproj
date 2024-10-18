@@ -82,6 +82,8 @@
     <Compile Include="Assets\Scripts\HomeWork_MultyHealthBar\PersonalHealth.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Examples\EnemyStateMashine_.cs" />
+    <Compile Include="Assets\Scripts\Medkit.cs" />
+    <Compile Include="Assets\Scripts\MedkitSpawner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

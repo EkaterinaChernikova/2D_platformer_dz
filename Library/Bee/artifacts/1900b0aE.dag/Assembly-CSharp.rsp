@@ -396,6 +396,8 @@
 "Assets/Scripts/HomeWork/State.cs"
 "Assets/Scripts/HomeWork/StateMachine.cs"
 "Assets/Scripts/HomeWork_MultyHealthBar/PersonalHealth.cs"
+"Assets/Scripts/Medkit.cs"
+"Assets/Scripts/MedkitSpawner.cs"
 "Assets/Scripts/Player/HealthBar.cs"
 "Assets/Scripts/Player/PlayerAnimations.cs"
 "Assets/Scripts/Player/PlayerAttack.cs"
